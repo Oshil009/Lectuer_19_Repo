@@ -1,10 +1,12 @@
-import React, {  useState } from 'react'
-import { Router, Route, Routes } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Route, Routes } from 'react-router-dom'
 import Home from './components/Home'
 import About from './components/About'
 import Contact from './components/Contact'
 import Navbar from './components/Navbar'
 import Product from './components/Product'
+import Comp404 from './components/Comp404'
+import Login from './components/Login'
 const initialProducts = [{ id: 1, name: "Wireless Headphones", price: 99.99, category: "Electronics", stock: 15, image: "🎧" },
 { id: 2, name: "Smart Watch", price: 199.50, category: "Wearables", stock: 8, image: "⌚" },
 { id: 3, name: "Mechanical Keyboard", price: 125.00, category: "Accessories", stock: 20, image: "⌨️" },
@@ -17,19 +19,22 @@ const initialProducts = [{ id: 1, name: "Wireless Headphones", price: 99.99, cat
 { id: 10, name: "Noise Cancelling Earbuds", price: 150.00, category: "Electronics", stock: 5, image: "👂" }]
 const App = () => {
   const [product, setProduct] = useState(initialProducts);
+  const [isLogin, setIsLogin] = useState(false);
+  if (!isLogin) {
+    return <Login setIsLogin={setIsLogin} />;
+  }
   return (
     <div>
-      <h2>App</h2>
-      <Navbar />
+      <Navbar setIsLogin={setIsLogin} />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/About' element={<About />} />
         <Route path='/Contact' element={<Contact />} />
-        <Route path='/product/:id' element={<Product product={product} setProduct={setProduct}/>} />
+        <Route path='/product/:id' element={<Product product={product} setProduct={setProduct} />} />
+        <Route path='*' element={<Comp404 />} />
       </Routes>
     </div>
-
-  )
+  );
 }
 
 export default App
