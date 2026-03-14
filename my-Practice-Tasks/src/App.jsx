@@ -19,7 +19,9 @@ const initialProducts = [{ id: 1, name: "Wireless Headphones", price: 99.99, cat
 { id: 10, name: "Noise Cancelling Earbuds", price: 150.00, category: "Electronics", stock: 5, image: "👂" }]
 const App = () => {
   const [product, setProduct] = useState(initialProducts);
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(()=>{
+    return localStorage.getItem('isLoggedIn') === 'true';
+  });
   if (!isLogin) {
     return <Login setIsLogin={setIsLogin} />;
   }
